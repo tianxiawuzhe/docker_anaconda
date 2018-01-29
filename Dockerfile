@@ -33,9 +33,9 @@ RUN echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/reposit
     && echo "http://dl-3.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories \
     && echo "http://dl-4.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories \
     && echo "http://dl-5.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories \
-    && apk --update add -y vim wget bzip2 ca-certificates git mercurial subversion curl grep sed dpkg \
+    && apk --update add vim wget bzip2 ca-certificates git mercurial subversion curl grep sed dpkg \
     && echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh \
-    && wget --quiet https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O ~/anaconda.sh
+    && wget --quiet https://repo.continuum.io/archive/Anaconda3-5.0.0-Linux-x86_64.sh -O ~/anaconda.sh
     
 RUN echo "========================================" \
     && head -370 ~/anaconda.sh | tail -20 \
