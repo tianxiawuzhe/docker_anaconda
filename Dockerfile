@@ -53,5 +53,5 @@ RUN echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/reposit
 
 ENV PATH /opt/conda/bin:$PATH
 
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD [ "/bin/bash" ]
+ENTRYPOINT [ "/bin/sh", "--" ]
+CMD [ "/bin/sh" ]
