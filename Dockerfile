@@ -36,7 +36,7 @@ RUN echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/reposit
     && apk --update add vim wget bzip2 ca-certificates git mercurial subversion curl grep sed dpkg \
     && echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh \
     && wget --quiet https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O ~/anaconda.sh \
-    && find /opt/conda/ -type f
+    && find ~/ -type f
     
 # RUN echo "========================================" \
 #     && head -370 ~/anaconda.sh | tail -20 \
