@@ -1,5 +1,5 @@
 ## FROM daocloud.io/python:2.7
-FROM continuumio/anaconda3:lastest
+FROM continuumio/anaconda3
 
 MAINTAINER JiangLong <jianglong1@cmbc.com.cn>
 
