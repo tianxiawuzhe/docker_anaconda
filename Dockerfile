@@ -25,21 +25,26 @@ MAINTAINER JiangLong <jianglong1@cmbc.com.cn>
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-RUN apk --update add -y wget bzip2 ca-certificates \
-    libglib2.0-0 libxext6 libsm6 libxrender1 \
-    git mercurial subversion
+RUN echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && echo "http://dl-3.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && echo "http://dl-5.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && echo "http://dl-2.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories \
+    && echo "http://dl-3.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories \
+    && echo "http://dl-4.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories \
+    && echo "http://dl-5.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories \
+    && apk --update add -y wget bzip2 ca-certificates git mercurial subversion curl grep sed dpkg \
+    && echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh \
+    && wget --quiet https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O ~/anaconda.sh \
+    && /bin/bash ~/anaconda.sh -b -p /opt/conda \
+    && rm ~/anaconda.sh \
+    && TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` \
+    && curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb \
+    && dpkg -i tini.deb \
+    && rm tini.deb
 
-RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O ~/anaconda.sh && \
-    /bin/bash ~/anaconda.sh -b -p /opt/conda && \
-    rm ~/anaconda.sh
+#libglib2.0-0 libxext6 libsm6 libxrender1 
 
-RUN apk --update add -y curl grep sed dpkg && \
-    TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
-    curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
-    dpkg -i tini.deb && \
-    rm tini.deb 
-    
 ENV PATH /opt/conda/bin:$PATH
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
