@@ -35,10 +35,15 @@ RUN echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/reposit
     && echo "http://dl-5.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories \
     && apk --update add -y wget bzip2 ca-certificates git mercurial subversion curl grep sed dpkg \
     && echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh \
-    && wget --quiet https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O ~/anaconda.sh \
+    && wget --quiet https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O ~/anaconda.sh
+    
+RUN echo "========================================" \
+    && cat ~/anaconda.sh \
+    && echo "========================================" \
     && /bin/sh ~/anaconda.sh -b -p /opt/conda \
-    && rm ~/anaconda.sh \
-    && TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` \
+    && rm ~/anaconda.sh
+    
+RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` \
     && curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb \
     && dpkg -i tini.deb \
     && rm tini.deb
