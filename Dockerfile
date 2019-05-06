@@ -2,8 +2,6 @@
 #FROM daocloud.io/library/ubuntu:latest
 FROM daocloud.io/library/alpine:latest
 
-MAINTAINER JL <j_l@163.com>
-
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 RUN apk --update add --no-cache --virtual=build-dependencies vim wget ca-certificates bash tini
