@@ -2,7 +2,7 @@
 #FROM daocloud.io/library/ubuntu:latest
 FROM daocloud.io/library/alpine:latest
 
-MAINTAINER JiangLong <jianglong1@cmbc.com.cn>
+MAINTAINER JL <j_l@163.com>
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
